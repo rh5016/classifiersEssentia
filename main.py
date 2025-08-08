@@ -6,6 +6,17 @@ import tempfile, shutil
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://www.unisonmusicapp.com"],
+    allow_credentials=True,
+    allow_methods=["http://www.unisonmusicapp.com"],
+    allow_headers=["http://www.unisonmusicapp.com"],
+)
+
+
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
     with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp:
